@@ -1,4 +1,4 @@
-package userssrv
+package main
 
 import (
 	"fmt"

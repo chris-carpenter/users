@@ -1,0 +1,42 @@
+
+version: "3"
+
+services:
+  backend_db:
+    image: postgres:14.1
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_DB=backend
+      - POSTGRES_USER=backend
+      - POSTGRES_PASSWORD
+      - POSTGRES_ROOT_PASSWORD
+    volumes:
+      - backend_postgresql:/var/lib/postgresql
+      - backend_postgresql_data:/var/lib/postgresql/data
+#  backend:
+#    build: .
+#    command: ["go", "run", "cmd/backend/main.go"]
+#    environment:
+#      - OAUTH_CLIENT_ID
+#      - OAUTH_CLIENT_SECRET
+#      - OPENID_PROVIDER_URL
+#      - LOGLEVEL=DEBUG
+#      - PGDATASOURCE=postgres://backend:${POSTGRES_PASSWORD}@postgres/backend?sslmode=disable
+#      - ADDR=:8080
+#      - STAGE=local
+#      - BRANCH=master
+#    depends_on:
+#      - backend_db
+#    links:
+#      - backend_db:postgres
+#    ports:
+#      - "18443:8443"
+#      - "18080:8080"
+#    volumes:
+#      - backend_gomod_data:/go/pkg/mod
+#      - .:/src
+volumes:
+  backend_postgresql:
+  backend_postgresql_data:
+#  backend_gomod_data:

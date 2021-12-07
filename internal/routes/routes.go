@@ -16,7 +16,11 @@ func Routes() {
 
 	router.GET("/persons/list", listUsers)
 
-	router.Run(":8080")
+	router.GET("/health", healthCheck)
+
+	if err := router.Run(":8080"); err != nil {
+		log.Fatal().Err(err).Msg("Unable to run routes")
+	}
 }
 
 // Add user
@@ -52,4 +56,10 @@ func deleteUser(c *gin.Context) {
 // list users
 func listUsers(c *gin.Context) {
 
+}
+
+func healthCheck(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
 }
