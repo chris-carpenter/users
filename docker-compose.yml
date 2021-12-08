@@ -30,7 +30,7 @@ services:
     ports:
       - "18080:8080"
 volumes:
-  users_postgresql:
-  users_postgresql_data:
+  postgresql:
+  postgresql_data:
 networks:
   backend:

@@ -10,11 +10,11 @@ import (
 
 func Routes() {
 	router := gin.Default()
-	router.POST("/person/add", addUser)
-	router.PUT("/person/edit", editUser)
-	router.DELETE("/person/delete", deleteUser)
+	router.POST("/user/add", addUser)
+	router.PUT("/user/edit", editUser)
+	router.DELETE("/user/delete", deleteUser)
 
-	router.GET("/persons/list", listUsers)
+	router.GET("/user/list", listUsers)
 
 	router.GET("/health", healthCheck)
 
