@@ -8,11 +8,12 @@ import (
 )
 
 type User struct {
-	Name        string
-	Group       string
-	ID          uuid.UUID
-	Emails      []string
-	PhoneNumber []string
+	Name         string
+	Password     string
+	Group        string
+	ID           uuid.UUID
+	Emails       []Email
+	PhoneNumbers []PhoneNumber
 }
 
 func (p User) String() string {

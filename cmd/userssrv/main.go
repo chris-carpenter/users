@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/akamensky/argparse"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"os"
+	"users/internal/data"
 	"users/internal/routes"
 )
 
@@ -28,5 +30,11 @@ func main() {
 		zerolog.SetGlobalLevel(zerolog.ErrorLevel)
 	}
 
+	log.Info().Msg("Starting user startup")
+	hostname := os.Getenv(data.DatabaseHostname)
+	database := os.Getenv(data.DatabaseName)
+	user := os.Getenv(data.DatabaseUser)
+	password := os.Getenv(data.DatabasePassword)
+	data.Initializer(hostname, database, user, password)
 	routes.Routes()
 }

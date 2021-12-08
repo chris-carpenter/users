@@ -16,6 +16,8 @@ EXPOSE 8080
 
 WORKDIR /
 COPY --from=build-env /users-server /
+RUN mkdir -p /db/migrations
+COPY ./internal/data/migrations /db/migrations
 RUN chmod 755 /users-server
 
 CMD ["/users-server"]

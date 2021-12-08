@@ -11,6 +11,12 @@ import (
 	"users/internal/users"
 )
 
+type UserDatabase interface {
+	SaveUser() error
+	GetUser() (users.User, error)
+	Initializer()
+}
+
 func SaveUser(user users.User) error {
 	fmt.Println(user)
 	//TODO: Implement saving a user
@@ -23,14 +29,15 @@ func GetUser(id uuid.UUID) (users.User, error) {
 	return user, nil
 }
 
-func Init() {
-	m, err := migrate.New(
-		"file://db/migrations",
-		"postgres://postgres:postgres@localhost:5432/example?sslmode=disable")
+func Initializer(hostname string, database string, user string, password string) {
+	dbHostname := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable", user, password, hostname, database)
+	log.Debug().Str("dbHostName", dbHostname)
+	m, err := migrate.New("file://db/migrations", dbHostname)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to create mew migrate")
 	}
 	if err := m.Up(); err != nil {
 		log.Fatal().Err(err).Msg("Failed to migrate database")
 	}
+	log.Info().Str("event", "init_db").Msg("Successfully initialized db")
 }
